@@ -187,9 +187,9 @@ function criaCanos() {
                     canos.largura, canos.altura
                     )
                     
+                // [Cano do Chão]
                 const canoChaoX = par.x
                 const canoChaoY = canos.altura + espacamentoEntreCanos + yRandom;
-                // [Cano do Chão]
                 contexto.drawImage(
                     sprites,
                     canos.chao.spriteX, canos.chao.spriteY,
@@ -236,11 +236,11 @@ function criaCanos() {
                 par.x -= 2
                 if(canos.temColisaoComOFlappyBird(par)) {
                     somDe_HIT.play()
-                    setTimeout(()=>{
-                        mudaParaTela(Telas.INICIO)
-                    },500)
-                    return
-                 }
+                   // setTimeout(()=>{
+                   //     mudaParaTela(Telas.INICIO)
+                   // },500)
+                    //return
+                }
                  if(par.x + canos.largura <= 0 ) {
                      canos.pares.shift()
                     }
@@ -250,26 +250,26 @@ function criaCanos() {
         return canos
     }
 
-    function criaPlacar () {
-        const placar = {
-            pontuacao: 0,
-            canoJaContado: false,
-            contador: 0,
-            desenha(){
-                contexto.font = '50px "VT323"'
-                contexto.fillStyle = 'white'
-                contexto.fillText(`${placar.pontuacao}`, 145, 100)
-                
-            },
-            atualiza() {
-                if(globais.canos.pares[placar.contador] !== undefined){
-                    let valor = globais.canos.pares[0].x
-                    if( valor <= 145 && !placar.canoJaContado){
-                        placar.pontuacao++
-                        console.log('aumentou')
-                        placar.contador++
-                        placar.canoJaContado = true
-                    }
+function criaPlacar () {
+    const placar = {
+        pontuacao: 0,
+        canoJaContado: false,
+        desenha(){
+            contexto.font = '50px "VT323"'
+            contexto.fillStyle = 'white'
+            contexto.fillText(`${placar.pontuacao}`, 145, 100)
+            
+        },
+        atualiza() {
+            if(globais.canos.pares[0] !== undefined){
+                let valor = globais.canos.pares[0].x
+                console.log(globais.canos.pares[0])
+                if( valor <= 145 && !placar.canoJaContado){
+                    placar.pontuacao += 1
+                    placar.canoJaContado = true
+                }
+            } else {
+                placar.canoJaContado = false
             }
         }
     }
